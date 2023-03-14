@@ -70,20 +70,31 @@ return {
           ["<C-y>"] = cmp.config.disable,
           ["<C-e>"] = cmp.mapping { i = cmp.mapping.abort(), c = cmp.mapping.close() },
           ["<CR>"] = cmp.mapping.confirm { select = false },
-          ['<Tab>'] = cmp.mapping(function(fallback)
-            local copilot_keys = vim.fn['copilot#Accept']()
-            if copilot_keys ~= '' and type(copilot_keys) == 'string' then
-              vim.api.nvim_feedkeys(copilot_keys, 'i', true)
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            local copilot_keys = vim.fn["copilot#Accept"] ""
+            -- print(string.format("copilot_keys: %s", copilot_keys))
+            -- print(string.format("copilot_keys type: %s", type(copilot_keys)))
+            -- print(string.format("inspect copilot_keys: %s", vim.inspect(copilot_keys)))
+            -- print(string.format("inspect fallback: %s", vim.inspect(fallback)))
+            if copilot_keys ~= "" and type(copilot_keys) == "string" then
+              -- print "copilot"
+              vim.api.nvim_feedkeys(copilot_keys, "i", true)
             elseif cmp.visible() then
+              -- print "cmp"
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
+              -- print "luasnip"
               luasnip.expand_or_jump()
+            elseif has_words_before() then
+              -- print "has_words_before"
+              cmp.complete()
             else
+              -- print "fallback"
               fallback()
             end
           end, {
-            'i',
-            's',
+            "i",
+            "s",
           }),
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -97,9 +108,9 @@ return {
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip",  priority = 750 },
-          { name = "buffer",   priority = 500 },
-          { name = "path",     priority = 250 },
+          { name = "luasnip", priority = 750 },
+          { name = "buffer", priority = 500 },
+          { name = "path", priority = 250 },
         },
       }
     end,

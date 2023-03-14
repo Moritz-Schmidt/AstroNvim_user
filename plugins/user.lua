@@ -11,6 +11,10 @@ return {
   -- },
   {
     "github/copilot.vim",
-    event = "BufEnter" 
-  }
+    event = "BufEnter",
+  },
+  {
+    "mg979/vim-visual-multi",
+    event = "BufEnter",
+  },
 }
