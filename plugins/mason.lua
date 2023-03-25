@@ -5,6 +5,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     -- overrides `require("mason-lspconfig").setup(...)`
     opts = {
+      format = { timeout_ms = 4000 },
       ensure_installed = {
         "lua_ls",
         "docker_compose_language_service",
@@ -12,7 +13,7 @@ return {
         "bashls",
         "denols",
         "emmet_ls",
-        "eslint",
+        "eslint_d",
         "html",
         "jsonls",
         "pyright",

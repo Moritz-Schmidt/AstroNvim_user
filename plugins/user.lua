@@ -17,4 +17,10 @@ return {
     "mg979/vim-visual-multi",
     event = "BufEnter",
   },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      format = { timeout_ms = 5000 },
+    },
+  },
 }
